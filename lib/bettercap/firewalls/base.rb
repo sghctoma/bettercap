@@ -24,6 +24,8 @@ class Base
 
       if RUBY_PLATFORM =~ /openbsd/ or RUBY_PLATFORM =~ /darwin/
         @@instance = Firewalls::BSD.new
+      elsif RUBY_PLATFORM =~ /freebsd/
+        @@instance = Firewalls::FBSD.new
       elsif RUBY_PLATFORM =~ /linux/
         @@instance = Firewalls::Linux.new
       else
