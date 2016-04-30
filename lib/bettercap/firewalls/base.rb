@@ -23,13 +23,13 @@ class Base
       return @@instance unless @@instance.nil?
 
       if RUBY_PLATFORM =~ /openbsd/ or RUBY_PLATFORM =~ /darwin/
-        @@instance = Firewalls::BSD.new
+        @@instance = Firewalls::PF.new
       elsif RUBY_PLATFORM =~ /freebsd/
         data = Shell.execute("kldstat -m ipfw")
         if data.include? "can't find module ipfwk"
-          @@instance = Firewalls::BSD.now
+          @@instance = Firewalls::PF.now
         else
-          @@instance = Firewalls::FBSD.new
+          @@instance = Firewalls::IPFW.new
         end
       elsif RUBY_PLATFORM =~ /linux/
         @@instance = Firewalls::Linux.new

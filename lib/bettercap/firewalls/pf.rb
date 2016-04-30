@@ -14,7 +14,7 @@ This project is released under the GPL 3 license.
 module BetterCap
 module Firewalls
 # *BSD and OSX Firewall class.
-class BSD < Base
+class PF < Base
   # If +enabled+ is true will enable packet forwarding, otherwise it will
   # disable it.
   def enable_forwarding(enabled)
