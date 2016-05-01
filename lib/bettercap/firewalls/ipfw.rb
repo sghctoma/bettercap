@@ -45,10 +45,6 @@ class IPFW < Base
 
   # Apply the +r+ BetterCap::Firewalls::Redirection port redirection object.
   def add_port_redirection( r )
-    File.open( config_file, 'a+t' ) do |f|
-      f.write "rdr pass on #{r.interface} proto #{r.protocol} from any to #{r.src_address.nil? ? 'any' : r.src_address} port #{r.src_port} -> #{r.dst_address} port #{r.dst_port}\n"
-    end
-
     # load the rule
     Shell.execute("ipfw add 13 fwd #{r.dst_address},#{r.dst_port} #{r.protocol} from any to #{r.src_address.nil? ? 'any' : r.src_address} #{r.src_port} via #{r.interface} >/dev/null 2>&1")
     # enable ipfw
